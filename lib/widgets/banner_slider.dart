@@ -33,22 +33,19 @@ class BannerSlider extends StatelessWidget {
             },
           ),
         ),
-        Padding(
-          padding: EdgeInsets.only(bottom: 8),
-          child: Positioned(
-            bottom: 0,
+        Positioned(
+          bottom: 10,
 
-            child: SmoothPageIndicator(
-              effect: ExpandingDotsEffect(
-                expansionFactor: 5,
-                dotColor: Colors.white,
-                activeDotColor: ColorProject.blueIndicator,
-                dotHeight: 10,
-                dotWidth: 10,
-              ),
-              controller: controller,
-              count: 3,
+          child: SmoothPageIndicator(
+            effect: ExpandingDotsEffect(
+              expansionFactor: 5,
+              dotColor: Colors.white,
+              activeDotColor: ColorProject.blueIndicator,
+              dotHeight: 10,
+              dotWidth: 10,
             ),
+            controller: controller,
+            count: 3,
           ),
         ),
       ],
