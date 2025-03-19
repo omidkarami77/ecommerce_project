@@ -1,15 +1,24 @@
 import 'dart:ui';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:ecommerce_project/bloc/authentication/authentication_bloc.dart';
 import 'package:ecommerce_project/constants/colors.dart';
+import 'package:ecommerce_project/di/di.dart';
+import 'package:ecommerce_project/screen/card_screen.dart';
 import 'package:ecommerce_project/screen/category_screen.dart';
 import 'package:ecommerce_project/screen/home_screen.dart';
+import 'package:ecommerce_project/screen/login_screen.dart';
+import 'package:ecommerce_project/screen/product_detail_screen.dart';
 import 'package:ecommerce_project/screen/product_list_screen.dart';
+import 'package:ecommerce_project/screen/profile_screen.dart';
 import 'package:ecommerce_project/widgets/banner_slider.dart';
 import 'package:ecommerce_project/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await getItInit();
   runApp(const MyApp());
 }
 
@@ -27,9 +36,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: IndexedStack(
-          index: selectedBottomNavigation,
-          children: getLayout(),
+        body: BlocProvider(
+          create: (context) => AuthenticationBloc(),
+          child: IndexedStack(
+            index: selectedBottomNavigation,
+            children: getLayout(),
+          ),
         ),
         bottomNavigationBar: ClipRRect(
           child: BackdropFilter(
@@ -136,10 +148,10 @@ class _MyAppState extends State<MyApp> {
 
   List<Widget> getLayout() {
     return <Widget>[
+      ProfileScreen(),
+      CardScreen(),
       CategoryScreen(),
-      ProductListScreen(),
-      CategoryScreen(),
-      HomeScreen(),
+      LoginScreen(),
     ];
   }
 }

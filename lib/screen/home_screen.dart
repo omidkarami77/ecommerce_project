@@ -1,5 +1,6 @@
 import 'package:ecommerce_project/constants/colors.dart';
 import 'package:ecommerce_project/widgets/banner_slider.dart';
+import 'package:ecommerce_project/widgets/category_horizontal_item_list.dart';
 import 'package:ecommerce_project/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 
@@ -120,7 +121,7 @@ class HomeScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(left: 20),
-                        child: CategoryHorizontalItemList(),
+                        child: CategoryItemChip(),
                       );
                     },
                   ),
