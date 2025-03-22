@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:ecommerce_project/bloc/banner/banner_bloc.dart';
+import 'package:ecommerce_project/bloc/category/category_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:ecommerce_project/bloc/authentication/authentication_bloc.dart';
@@ -150,8 +152,11 @@ class _MyAppState extends State<MyApp> {
     return <Widget>[
       ProfileScreen(),
       CardScreen(),
-      CategoryScreen(),
-      LoginScreen(),
+      BlocProvider(
+        create: (context) => CategoryBloc(),
+        child: CategoryScreen(),
+      ),
+      BlocProvider(create: (context) => BannerBloc(), child: HomeScreen()),
     ];
   }
 }

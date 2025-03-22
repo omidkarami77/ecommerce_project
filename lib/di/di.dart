@@ -1,6 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:ecommerce_project/data/datasource/authentication_remote.dart';
+import 'package:ecommerce_project/data/datasource/banner_datasource.dart';
+import 'package:ecommerce_project/data/datasource/category_datasource.dart';
 import 'package:ecommerce_project/data/repository/authentication_repository.dart';
+import 'package:ecommerce_project/data/repository/banner_repository.dart';
+import 'package:ecommerce_project/data/repository/categoryy_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,12 +15,21 @@ Future<void> getItInit() async {
     Dio(BaseOptions(baseUrl: 'https://startflutter.ir/api/')),
   );
 
+  locator.registerFactory<IBannerDataSource>(() => BannerDatasource());
+
+  locator.registerFactory<IBannerRepository>(() => BannerRepository());
+
   locator.registerFactory<IAthenticationRepository>(
     () => AuthenticationRepository(),
+  );
+  locator.registerFactory<ICategoryDataSource>(() => CategoryDatasource());
+  locator.registerFactory<ICategoryRepository>(
+    () => CategoryyRepository(locator.get()),
   );
   locator.registerSingleton<SharedPreferences>(
     await SharedPreferences.getInstance(),
   );
+
   locator.registerFactory<IAuthenticationDataSource>(
     () => AuthenticationRemote(),
   );

@@ -1,11 +1,26 @@
+import 'package:ecommerce_project/bloc/banner/banner_bloc.dart';
+import 'package:ecommerce_project/bloc/category/category_bloc.dart';
 import 'package:ecommerce_project/constants/colors.dart';
 import 'package:ecommerce_project/widgets/banner_slider.dart';
 import 'package:ecommerce_project/widgets/category_horizontal_item_list.dart';
 import 'package:ecommerce_project/widgets/product_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<BannerBloc>(context).add(BannerRequestEvent());
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +101,26 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SliverToBoxAdapter(child: BannerSlider()),
+            BlocBuilder<BannerBloc, BannerState>(
+              builder: (context, state) {
+                if (state is BannerLoading) {
+                  return SliverToBoxAdapter(child: CircularProgressIndicator());
+                }
+
+                if (state is BannerResponseState) {
+                  return state.response.fold(
+                    (l) {
+                      return SliverToBoxAdapter(child: Text(l));
+                    },
+                    (r) {
+                      return SliverToBoxAdapter(child: BannerSlider(list: r));
+                    },
+                  );
+                }
+                return SliverToBoxAdapter(child: Text("error"));
+              },
+            ),
+
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.only(
