@@ -1,11 +1,11 @@
-class Categoryy {
+class product {
   int? page;
   int? perPage;
   int? totalItems;
   int? totalPages;
-  List<Items>? items;
+  List<ProductItems>? items;
 
-  Categoryy({
+  product({
     this.page,
     this.perPage,
     this.totalItems,
@@ -13,15 +13,15 @@ class Categoryy {
     this.items,
   });
 
-  Categoryy.fromJson(Map<String, dynamic> json) {
+  product.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     perPage = json['perPage'];
     totalItems = json['totalItems'];
     totalPages = json['totalPages'];
     if (json['items'] != null) {
-      items = <Items>[];
+      items = <ProductItems>[];
       json['items'].forEach((v) {
-        items!.add(new Items.fromJson(v));
+        items!.add(new ProductItems.fromJson(v));
       });
     }
   }
@@ -39,53 +39,68 @@ class Categoryy {
   }
 }
 
-class Items {
+class ProductItems {
+  String? category;
   String? collectionId;
   String? collectionName;
-  String? color;
   String? created;
-  String? icon;
+  String? description;
+  int? discountPrice;
   String? id;
+  String? name;
+  String? popularity;
+  int? price;
+  int? quantity;
   String? thumbnail;
-  String? title;
   String? updated;
 
-  Items({
+  ProductItems({
+    this.category,
     this.collectionId,
     this.collectionName,
-    this.color,
     this.created,
-    this.icon,
+    this.description,
+    this.discountPrice,
     this.id,
+    this.name,
+    this.popularity,
+    this.price,
+    this.quantity,
     this.thumbnail,
-    this.title,
     this.updated,
   });
 
-  Items.fromJson(Map<String, dynamic> json) {
+  ProductItems.fromJson(Map<String, dynamic> json) {
+    category = json['category'];
     collectionId = json['collectionId'];
     collectionName = json['collectionName'];
-    color = json['color'];
     created = json['created'];
-    icon =
-        'http://startflutter.ir/api/files/${json['collectionId']}/${json['id']}/${json['icon']}';
+    description = json['description'];
+    discountPrice = json['discount_price'];
     id = json['id'];
+    name = json['name'];
+    popularity = json['popularity'];
+    price = json['price'];
+    quantity = json['quantity'];
     thumbnail =
         'http://startflutter.ir/api/files/${json['collectionId']}/${json['id']}/${json['thumbnail']}';
-    title = json['title'];
     updated = json['updated'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['category'] = this.category;
     data['collectionId'] = this.collectionId;
     data['collectionName'] = this.collectionName;
-    data['color'] = this.color;
     data['created'] = this.created;
-    data['icon'] = this.icon;
+    data['description'] = this.description;
+    data['discount_price'] = this.discountPrice;
     data['id'] = this.id;
+    data['name'] = this.name;
+    data['popularity'] = this.popularity;
+    data['price'] = this.price;
+    data['quantity'] = this.quantity;
     data['thumbnail'] = this.thumbnail;
-    data['title'] = this.title;
     data['updated'] = this.updated;
     return data;
   }

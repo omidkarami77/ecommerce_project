@@ -1,8 +1,11 @@
 import 'package:ecommerce_project/constants/colors.dart';
+import 'package:ecommerce_project/data/model/product.dart';
+import 'package:ecommerce_project/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key});
+  ProductItems _productItems;
+  ProductItem(this._productItems, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,13 @@ class ProductItem extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [Image.asset("assets/images/iphone.png")],
+                children: [
+                  SizedBox(
+                    height: 100,
+                    width: 90,
+                    child: CachedImage(urlImage: _productItems.thumbnail),
+                  ),
+                ],
               ),
 
               Positioned(
@@ -72,7 +81,8 @@ class ProductItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10, right: 10),
                 child: Text(
-                  "آیفون 13 پرو مکس",
+                  "${_productItems.name}",
+
                   maxLines: 1,
                   style: TextStyle(fontFamily: 'sm', fontSize: 14),
                 ),
@@ -113,7 +123,7 @@ class ProductItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "11,480,000",
+                            "${_productItems.price}",
                             style: const TextStyle(
                               fontFamily: 'sm',
                               fontSize: 12,
@@ -122,7 +132,7 @@ class ProductItem extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "11,400,000",
+                            "${_productItems.discountPrice}",
                             style: const TextStyle(
                               fontFamily: 'sm',
                               fontSize: 16,

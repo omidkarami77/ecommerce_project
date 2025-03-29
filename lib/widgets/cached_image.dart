@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CachedImage extends StatelessWidget {
-  String urlImage;
+  String? urlImage;
   double radius;
   CachedImage({super.key, required this.urlImage, this.radius = 0});
 
@@ -16,7 +16,7 @@ class CachedImage extends StatelessWidget {
         placeholder: (context, url) {
           return Container(color: Colors.grey);
         },
-        imageUrl: urlImage,
+        imageUrl: urlImage!,
         fit: BoxFit.cover,
       ),
     );

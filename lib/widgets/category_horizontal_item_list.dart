@@ -1,10 +1,16 @@
+import 'package:ecommerce_project/data/model/category.dart';
+import 'package:ecommerce_project/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 
 class CategoryItemChip extends StatelessWidget {
-  const CategoryItemChip({super.key});
+  final Items item;
+
+  CategoryItemChip(this.item, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    String categoryColor = 'ff${item.color}';
+    int hexColor = int.parse(categoryColor, radix: 16);
     return Column(
       children: [
         Stack(
@@ -14,7 +20,7 @@ class CategoryItemChip extends StatelessWidget {
               width: 56,
               height: 56,
               decoration: ShapeDecoration(
-                color: Colors.red,
+                color: Color(hexColor),
                 shadows: [
                   BoxShadow(
                     color: Colors.red,
@@ -28,11 +34,18 @@ class CategoryItemChip extends StatelessWidget {
                 ),
               ),
             ),
-            Icon(color: Colors.white, Icons.mouse, size: 26),
+            SizedBox(
+              height: 24,
+              width: 24,
+              child: CachedImage(urlImage: item.icon),
+            ),
           ],
         ),
         SizedBox(height: 10),
-        Text("همه", style: TextStyle(fontFamily: "SB", color: Colors.black)),
+        Text(
+          '${item.title}',
+          style: TextStyle(fontFamily: "SB", color: Colors.black),
+        ),
       ],
     );
   }

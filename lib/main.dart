@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:ecommerce_project/bloc/banner/banner_bloc.dart';
+import 'package:ecommerce_project/bloc/home/home_bloc.dart';
 import 'package:ecommerce_project/bloc/category/category_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -156,7 +156,7 @@ class _MyAppState extends State<MyApp> {
         create: (context) => CategoryBloc(),
         child: CategoryScreen(),
       ),
-      BlocProvider(create: (context) => BannerBloc(), child: HomeScreen()),
+      BlocProvider(create: (context) => HomeBloc(), child: HomeScreen()),
     ];
   }
 }
