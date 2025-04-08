@@ -53,7 +53,6 @@ class ProductDatasource implements IProductDataSource {
       );
 
       if (response.statusCode == 200 && response.data != null) {
-        print("response status code : ${response.statusCode}");
         var list =
             response.data['items']
                 .map<ProductItems>(
@@ -82,7 +81,6 @@ class ProductDatasource implements IProductDataSource {
         "collections/products/records",
         queryParameters: qParams,
       );
-      print("response status code : ${response.statusCode}");
 
       if (response.statusCode == 200 && response.data != null) {
         var list =
@@ -91,7 +89,6 @@ class ProductDatasource implements IProductDataSource {
                   (jsonObject) => ProductItems.fromJson(jsonObject),
                 )
                 .toList();
-        print(" ${list[1].toString()}");
         return list;
       } else {
         throw ApiException(response.statusCode, 'خطا در دریافت محصولات داغ');

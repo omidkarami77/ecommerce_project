@@ -16,14 +16,11 @@ class CategoryDatasource implements ICategoryDataSource {
 
     try {
       final response = await _dio.get('collections/category/records');
-      // print("Response Data: ${response.data}");
 
       var list =
           response.data['items']
               .map<Items>((jsonObject) => Items.fromJson(jsonObject))
               .toList();
-
-      print(list);
 
       return list;
     } on DioException catch (e) {

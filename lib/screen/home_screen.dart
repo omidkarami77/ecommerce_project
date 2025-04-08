@@ -92,7 +92,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (state is HomeRequestSuccessState) ...[
                   state.getHotest.fold(
                     (l) {
-                      print(l.toString());
                       return SliverToBoxAdapter(child: Text(l));
                     },
                     (r) {

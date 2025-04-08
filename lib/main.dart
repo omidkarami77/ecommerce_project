@@ -19,7 +19,10 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 void main() async {
+  // اگر نیاز به تنظیمات خاص دارید
+
   WidgetsFlutterBinding.ensureInitialized();
+
   await getItInit();
   runApp(const MyApp());
 }

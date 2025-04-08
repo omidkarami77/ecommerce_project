@@ -12,7 +12,7 @@ class CachedImage extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(radius)),
       child: CachedNetworkImage(
-        errorWidget: (context, url, error) => Container(color: Colors.red[100]),
+        errorWidget: (context, url, error) => Container(color: Colors.red[500]),
         placeholder: (context, url) {
           return Container(color: Colors.grey);
         },

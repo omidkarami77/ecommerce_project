@@ -45,7 +45,6 @@ class ProductRepository implements IProductRepository {
 
     try {
       var response = await _dataSource.getHotest();
-      print(response.toString());
       return right(response);
     } on ApiException catch (e) {
       return left(e.message ?? 'خطا محتوای متنی ندارد');

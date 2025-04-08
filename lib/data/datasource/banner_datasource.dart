@@ -16,14 +16,11 @@ class BannerDatasource implements IBannerDataSource {
 
     try {
       final response = await _dio.get("collections/banner/records");
-      print("Response Data: ${response.data}");
 
       var list =
           response.data['items']
               .map<BannerItems>((json) => BannerItems.fromJson(json))
               .toList();
-
-      print(list);
 
       return list;
     } on DioException catch (e) {

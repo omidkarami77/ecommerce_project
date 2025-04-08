@@ -6,9 +6,11 @@ plugins {
 }
 
 android {
+            
+
     namespace = "com.example.ecommerce_project"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "29.0.13113456"  // نسخه جدید NDK که شما استفاده می‌کنید
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -20,6 +22,7 @@ android {
     }
 
     defaultConfig {
+        multiDexEnabled = true
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.ecommerce_project"
         // You can update the following values to match your application needs.
