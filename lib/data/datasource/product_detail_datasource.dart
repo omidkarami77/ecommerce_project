@@ -7,7 +7,7 @@ import 'package:ecommerce_project/di/di.dart';
 import 'package:ecommerce_project/util/api_exception.dart';
 
 abstract class IProductDetailDataSource {
-  Future<List<ProductImageItems>> getGallery();
+  Future<List<ProductImageItems>> getGallery(String productId);
   Future<List<VariantTypeItems>> getVariantTypes();
   Future<List<Variant>> getVariants();
   Future<List<ProductVariant>> getProductVariants();
@@ -17,9 +17,9 @@ class ProductDetailDatasource implements IProductDetailDataSource {
   final Dio _dio = locator.get();
 
   @override
-  Future<List<ProductImageItems>> getGallery() async {
+  Future<List<ProductImageItems>> getGallery(String productId) async {
     // TODO: implement getGallery
-    Map<String, String> qParams = {"filter": 'product_id="78n4wqor3hhnkju"'};
+    Map<String, String> qParams = {"filter": 'product_id="${productId}"'};
 
     try {
       var response = await _dio.get(

@@ -7,7 +7,9 @@ import 'package:ecommerce_project/di/di.dart';
 import 'package:ecommerce_project/util/api_exception.dart';
 
 abstract class IProductDetailRepository {
-  Future<Either<String, List<ProductImageItems>>> getGallery();
+  Future<Either<String, List<ProductImageItems>>> getProdcutImage(
+    String productId,
+  );
   Future<Either<String, List<VariantTypeItems>>> getVariants();
   Future<Either<String, List<ProductVariant>>> getProductVariants();
 }
@@ -16,11 +18,13 @@ class ProductDetailRepository implements IProductDetailRepository {
   final IProductDetailDataSource _dataSource = locator.get();
 
   @override
-  Future<Either<String, List<ProductImageItems>>> getGallery() async {
+  Future<Either<String, List<ProductImageItems>>> getProdcutImage(
+    String productId,
+  ) async {
     // TODO: implement getGallery
 
     try {
-      var response = await _dataSource.getGallery();
+      var response = await _dataSource.getGallery(productId);
       return right(response);
     } on ApiException catch (e) {
       return left(e.message ?? 'خطا محتوای متنی ندارد');

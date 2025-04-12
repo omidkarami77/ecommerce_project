@@ -25,7 +25,7 @@ class _ProductItemState extends State<ProductItem> {
             builder:
                 (context) => BlocProvider(
                   create: (context) => ProductBloc(),
-                  child: ProductDetailScreen(),
+                  child: ProductDetailScreen(widget._productItems),
                 ),
           ),
         );

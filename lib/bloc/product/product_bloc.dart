@@ -19,7 +19,9 @@ class ProductBloc extends Bloc<ProductItemsEvent, ProductItemsState> {
       // TODO: implement event handler
       emit(ProductLoadingState());
 
-      var response = await _productDetailRepository.getGallery();
+      var response = await _productDetailRepository.getProdcutImage(
+        event.productId,
+      );
       var productVariant = await _productDetailRepository.getProductVariants();
 
       emit(ProductRequestSuccessState(response, productVariant));
