@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:ecommerce_project/data/model/category.dart';
 import 'package:ecommerce_project/data/model/gallery.dart';
 import 'package:ecommerce_project/data/model/product.dart';
 import 'package:ecommerce_project/data/model/product_variant.dart';
@@ -23,8 +24,12 @@ class ProductBloc extends Bloc<ProductItemsEvent, ProductItemsState> {
         event.productId,
       );
       var productVariant = await _productDetailRepository.getProductVariants();
-
-      emit(ProductRequestSuccessState(response, productVariant));
+      var productCategory = await _productDetailRepository.getProductCategory(
+        event.categoryId,
+      );
+      emit(
+        ProductRequestSuccessState(response, productVariant, productCategory),
+      );
     });
   }
 }

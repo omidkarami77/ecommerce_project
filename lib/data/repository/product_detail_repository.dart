@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce_project/data/datasource/product_detail_datasource.dart';
+import 'package:ecommerce_project/data/model/category.dart';
 import 'package:ecommerce_project/data/model/gallery.dart';
 import 'package:ecommerce_project/data/model/product_variant.dart';
 import 'package:ecommerce_project/data/model/variant_type.dart';
@@ -12,10 +13,21 @@ abstract class IProductDetailRepository {
   );
   Future<Either<String, List<VariantTypeItems>>> getVariants();
   Future<Either<String, List<ProductVariant>>> getProductVariants();
+  Future<Either<String, Items>> getProductCategory(String categoryId);
 }
 
 class ProductDetailRepository implements IProductDetailRepository {
   final IProductDetailDataSource _dataSource = locator.get();
+
+  @override
+  Future<Either<String, Items>> getProductCategory(String categoryId) async {
+    try {
+      var response = await _dataSource.getProductCategory(categoryId);
+      return right(response);
+    } on ApiException catch (e) {
+      return left(e.message ?? 'خطا محتوای متنی ندارد');
+    }
+  }
 
   @override
   Future<Either<String, List<ProductImageItems>>> getProdcutImage(

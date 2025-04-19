@@ -26,7 +26,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   void initState() {
     BlocProvider.of<ProductBloc>(
       context,
-    ).add(ProductItemsInitEvent(widget.product.id!));
+    ).add(ProductItemsInitEvent(widget.product.id!, widget.product.category!));
 
     // TODO: implement initState
     super.initState();
@@ -53,47 +53,50 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                 ],
 
-                if (state is ProductRequestSuccessState) ...[],
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      left: 44,
-                      right: 44,
-                      bottom: 32,
-                      top: 20,
-                    ),
-                    child: Container(
-                      height: 46,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                if (state is ProductRequestSuccessState) ...[
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 44,
+                        right: 44,
+                        bottom: 32,
+                        top: 20,
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 15),
-                            child: Image.asset(
-                              "assets/images/icon_apple_blue.png",
+                      child: Container(
+                        height: 46,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 15),
+                              child: Image.asset(
+                                "assets/images/icon_apple_blue.png",
+                              ),
                             ),
-                          ),
-                          Text(
-                            "آیفون",
-                            style: TextStyle(
-                              fontFamily: "SB",
-                              fontSize: 16,
-                              color: ColorProject.blue,
+
+                            state.productCategory.fold(
+                              (l) {
+                                return Text(l);
+                              },
+                              (r) {
+                                return Text(r.title!);
+                              },
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 15),
-                            child: Image.asset("assets/images/icon_back.png"),
-                          ),
-                        ],
+                            Padding(
+                              padding: EdgeInsets.only(right: 15),
+                              child: Image.asset("assets/images/icon_back.png"),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
+                ],
+
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 20),
@@ -126,7 +129,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     },
                   ),
                 ],
-
                 SliverToBoxAdapter(
                   child: Column(
                     children: [
@@ -421,9 +423,8 @@ class VariantContainer extends StatelessWidget {
 
             SizedBox(height: 20),
 
-            // StorageVariantList(),
             Text(
-              "انتخاب حافظه داخلی",
+              variantList[1].variantTypeItems.title!,
               style: TextStyle(
                 fontSize: 12,
                 fontFamily: "SM",
@@ -431,68 +432,8 @@ class VariantContainer extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  height: 26,
-                  width: 74,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: ColorProject.grey, width: 0.5),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text(
-                      "512",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 12, fontFamily: "SM"),
-                    ),
-                  ),
-                ),
 
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-
-                  height: 26,
-                  width: 74,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: ColorProject.grey, width: 0.5),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text(
-                      "256",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontFamily: "SM", fontSize: 12),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-
-                  height: 26,
-                  width: 74,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: ColorProject.grey, width: 0.5),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text(
-                      "128",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontFamily: "SM", fontSize: 12),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            StorageVariantList(variantList[0].variants),
           ],
         ),
       ),
@@ -855,7 +796,7 @@ class _StorageVariantListState extends State<StorageVariantList> {
         height: 28,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: widget.storageVariantList.length,
+          itemCount: 3,
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
@@ -877,13 +818,12 @@ class _StorageVariantListState extends State<StorageVariantList> {
                           )
                           : Border.all(width: 1, color: ColorProject.green),
                 ),
-                color: Colors.white,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
 
                   child: Center(
                     child: Text(
-                      widget.storageVariantList[index].value!,
+                      widget.storageVariantList[index].name!,
                       style: TextStyle(fontFamily: 'sb', fontSize: 12),
                     ),
                   ),
